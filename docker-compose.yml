@@ -10,7 +10,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - /uploads:/img
+      - /opt/findface-multi/data/findface-multi-legacy/uploads:/img
     networks:
       - appnetwork
 
