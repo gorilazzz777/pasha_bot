@@ -15,7 +15,7 @@ func MergeImages(photoPath1, photoPath2, photoResultPath string) {
 	}
 
 	// merge the images into a 2x1 grid
-	rgba, err := gim.New(grids, 2, 1, gim.OptGridSize(200, 150)).Merge()
+	rgba, err := gim.New(grids, 2, 1).Merge()
 	if err != nil {
 		fmt.Println(err)
 	}
