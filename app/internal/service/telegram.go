@@ -18,8 +18,8 @@ func (s *TelegramService) Send(webhook pasha_bot.Input) {
 	img.MergeImages(webhook.Image.Thumbnail, webhook.Image.Original, "/img/merge.jpg")
 	mess := fmt.Sprintf("дата: %s\nПерсонаж: %s",
 		webhook.Date, webhook.Persona.Name)
-	tgbot.SendRequest(mess, webhook.Image.FullFrame, "/img/merge.jpg")
-	//mess = fmt.Sprintf("Полниразмерное фото: %s", webhook.Persona.Name)
-	//tgbot.SendRequest(mess, webhook.Image.FullFrame)
-	//img.DeleteImage("./merge.jpg")
+	tgbot.SendRequest(mess, "/img/merge.jpg")
+	mess = fmt.Sprintf("Полноразмерное фото: %s", webhook.Persona.Name)
+	tgbot.SendRequest(mess, webhook.Image.FullFrame)
+	img.DeleteImage("/img/merge.jpg")
 }
