@@ -4,12 +4,24 @@ services:
   web:
     build:
       context: .
-      dockerfile: Dockerfile
-    container_name: BOT
+      dockerfile: compose/app/Dockerfile
+    container_name: WEB
     env_file:
-      - .env
+      - app/.env
     ports:
       - "8000:8000"
     volumes:
-      - /opt/findface-multi/data/findface-multi-legacy/uploads:/img
-#      - C:\Users\nikolay.korchik\Downloads\:/img
+#      - /opt/findface-multi/data/findface-multi-legacy/uploads:/img
+      - C:\Users\nikolay.korchik\Downloads\:/img
+  bot:
+    build:
+      context: .
+      dockerfile: compose/bot/Dockerfile
+    container_name: BOT
+    env_file:
+      - app/.env
+    ports:
+      - "8001:8001"
+    volumes:
+#      - /opt/findface-multi/data/findface-multi-legacy/uploads:/img
+      - C:\Users\nikolay.korchik\Downloads\:/img

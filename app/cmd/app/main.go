@@ -1,7 +1,6 @@
 package main
 
 import (
-	"github.com/joho/godotenv"
 	"github.com/sirupsen/logrus"
 	"os"
 	bot "pasha_bot"
@@ -13,9 +12,9 @@ import (
 // @version 1.0
 // @description     Сервис шлет Павлику фотки Наиля в ТГ
 func main() {
-	if err := godotenv.Load(); err != nil {
-		logrus.Fatalf("error loading env file: %s", err.Error())
-	}
+	//if err := godotenv.Load(); err != nil {
+	//	logrus.Fatalf("error loading env file: %s", err.Error())
+	//}
 
 	services := service.NewService()
 	handlers := handler.NewHandler(services)

@@ -1,11 +1,7 @@
 package pasha_bot
 
 import (
-	"encoding/json"
-	"fmt"
-	"net/url"
 	"os"
-	"pasha_bot/pkg/request"
 	"strings"
 )
 
@@ -35,21 +31,21 @@ type Webhook struct {
 }
 
 func (w *Webhook) getOriginalFace() {
-	q := url.Values{}
-	q.Add("card", string(rune(w.Persona.CardId)))
-	data, err := request.SendRequest(os.Getenv("FIND_FACE_URL"), os.Getenv("FIND_FACE_API_KEY"), q)
-	if err != nil {
-		fmt.Println(err)
-	}
-	var faces Faces
-	err = json.Unmarshal(data, &faces)
-	if err != nil {
-		fmt.Println(err)
-	}
-	//r := Face{thumbnail: "img/original.jpg"}
-	//faces := Faces{
-	//	results: []Face{r},
+	//q := url.Values{}
+	//q.Add("card", string(rune(w.Persona.CardId)))
+	//data, err := request.SendRequest(os.Getenv("FIND_FACE_URL"), os.Getenv("FIND_FACE_API_KEY"), q)
+	//if err != nil {
+	//	fmt.Println(err)
 	//}
+	//var faces Faces
+	//err = json.Unmarshal(data, &faces)
+	//if err != nil {
+	//	fmt.Println(err)
+	//}
+	r := Face{thumbnail: "img/original.jpg"}
+	faces := Faces{
+		results: []Face{r},
+	}
 	w.Image.Original = faces.results[0].thumbnail
 }
 
