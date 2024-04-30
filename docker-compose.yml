@@ -4,17 +4,12 @@ services:
   web:
     build:
       context: .
-      dockerfile: ./Dockerfile
-#    image: botservice:local
-    container_name: BOT_WEB
+      dockerfile: Dockerfile
+    container_name: BOT
+    env_file:
+      - .env
     ports:
       - "8000:8000"
     volumes:
       - /opt/findface-multi/data/findface-multi-legacy/uploads:/img
 #      - C:\Users\nikolay.korchik\Downloads\:/img
-    networks:
-      - appnetwork
-
-networks:
-  appnetwork:
-    driver: bridge

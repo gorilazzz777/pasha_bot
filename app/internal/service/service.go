@@ -2,10 +2,8 @@ package service
 
 import "pasha_bot"
 
-//go:generate mockgen -source=service.go -destination=mocks/mock.go
-
 type Telegram interface {
-	Send(token pasha_bot.Input)
+	Send(token pasha_bot.Webhook)
 }
 
 type Service struct {

@@ -4,12 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+	"os"
 	"pasha_bot/pkg/request"
 	"strings"
 )
-
-const ffUrl = "https://127.0.0.1:5467/objects/faces/"
-const ffApiKey = "1234"
 
 type Faces struct {
 	results []Face
@@ -30,16 +28,16 @@ type LastFaceEvent struct {
 	Original  string
 }
 
-type Input struct {
+type Webhook struct {
 	Date    string        `json:"created_date" binding:"required"`
 	Persona MatchedCard   `json:"matched_card" binding:"required"`
 	Image   LastFaceEvent `json:"last_face_event" binding:"required"`
 }
 
-func (i *Input) getOriginalFace() {
+func (w *Webhook) getOriginalFace() {
 	q := url.Values{}
-	q.Add("card", string(rune(i.Persona.CardId)))
-	data, err := request.SendRequest(ffUrl, ffApiKey, q)
+	q.Add("card", string(rune(w.Persona.CardId)))
+	data, err := request.SendRequest(os.Getenv("FIND_FACE_URL"), os.Getenv("FIND_FACE_API_KEY"), q)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -52,11 +50,11 @@ func (i *Input) getOriginalFace() {
 	//faces := Faces{
 	//	results: []Face{r},
 	//}
-	i.Image.Original = faces.results[0].thumbnail
+	w.Image.Original = faces.results[0].thumbnail
 }
 
-func (i *Input) Format() {
-	i.Image.Thumbnail = strings.Replace(i.Image.Thumbnail, "http://192.168.1.58/uploads", "/img", 1)
-	i.Image.FullFrame = strings.Replace(i.Image.FullFrame, "http://192.168.1.58/uploads", "/img", 1)
-	i.getOriginalFace()
+func (w *Webhook) Format() {
+	w.Image.Thumbnail = strings.Replace(w.Image.Thumbnail, os.Getenv("PHOTO_SERVER_URL"), os.Getenv("IMG_PATH"), 1)
+	w.Image.FullFrame = strings.Replace(w.Image.FullFrame, os.Getenv("PHOTO_SERVER_URL"), os.Getenv("IMG_PATH"), 1)
+	w.getOriginalFace()
 }

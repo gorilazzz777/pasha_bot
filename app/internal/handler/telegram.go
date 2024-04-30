@@ -9,7 +9,7 @@ import (
 )
 
 func (h *Handler) TelegramWebhook(c *gin.Context) {
-	var req []pasha_bot.Input
+	var req []pasha_bot.Webhook
 	forLog, _ := httputil.DumpRequest(c.Request, true)
 	fmt.Println(string(forLog))
 	if err := c.ShouldBindJSON(&req); err != nil {

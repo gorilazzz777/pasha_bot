@@ -3,13 +3,16 @@ package tgbot
 import (
 	"fmt"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+	"os"
+	"strconv"
 )
 
-const token = "7183801317:AAHWE2ww6y3F7rZY5zmNu93xeLuiL-gwRR4"
-const chatId = 314529904
-
 func SendRequest(caption string, filePath string) {
-	bot, err := tgbotapi.NewBotAPI(token)
+	chatId, err := strconv.ParseInt(os.Getenv("TG_CHAT_ID"), 10, 64)
+	if err != nil {
+		panic(err)
+	}
+	bot, err := tgbotapi.NewBotAPI(os.Getenv("TG_TOKEN"))
 	if err != nil {
 		fmt.Println(err)
 	}
